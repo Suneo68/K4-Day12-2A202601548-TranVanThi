@@ -66,7 +66,8 @@ class ChatStore:
         try:
             self.client.ping()
             return True
-        except Exception:
+        except Exception as e:
+            self.last_error = f"{type(e).__name__}: {e}"
             return False
 
     def add_turn(self, client_id: str, role: str, content: str) -> None:

@@ -109,9 +109,13 @@ def readyz(store: ChatStore = Depends(get_store)):
     if shutdown_guard.draining:
         return JSONResponse(status_code=503, content={"status": "draining"})
     if not store.ping():
+        err = getattr(store, "last_error", None)
+        content = {"status": "not ready", "redis": False}
+        if err:
+            content["error"] = err
         return JSONResponse(
             status_code=503,
-            content={"status": "not ready", "redis": False},
+            content=content,
         )
     return {"status": "ready", "redis": True}
 
