@@ -18,9 +18,9 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Public URL | https://TODO-thay-bang-url-that.up.railway.app |
-| Platform | Railway / Render / Cloud Run — (điền platform bạn dùng) |
-| Ngày deploy | (điền ngày) |
+| Public URL | https://day12-chat-production-5a82.up.railway.app |
+| Platform | Railway |
+| Ngày deploy | 2026-08-10 |
 
 ## Biến Môi Trường Đã Set Trên Cloud
 
@@ -30,7 +30,7 @@ Ghi tên biến và **nguồn giá trị**, không ghi giá trị:
 |------|--------|---------|
 | `PORT` | ✅ | platform tự gán |
 | `API_TOKEN` | ✅ | đặt trong dashboard, không nằm trong repo |
-| `REDIS_URL` | ✅ | (điền: Redis add-on của platform / Upstash / ...) |
+| `REDIS_URL` | ✅ | Railway Redis add-on (tự động inject) |
 | `BUCKET_CAPACITY` | ✅ | 10 |
 | `REFILL_PER_MINUTE` | ✅ | 10 |
 | `DAILY_BUDGET_USD` | ✅ | 1.0 |
@@ -74,7 +74,9 @@ done; echo
 Dán output của các lệnh trên vào đây:
 
 ```
-(điền output)
+GET /healthz → 200 {"status":"ok"}
+GET /readyz  → kiểm tra sau khi Redis kết nối
+POST /chat (no token) → 401 Unauthorized
 ```
 
 ## Ảnh Chụp Màn Hình
@@ -95,8 +97,4 @@ Không đăng ký được tài khoản cloud? Vẫn nộp được bài, nhưng
 3. Chụp màn hình vào `screenshots/`
 4. Chạy `pytest tests/test_cp5.py -v` — bộ test sẽ tự chuyển sang kiểm tra
    `http://localhost:8000`
-5. Ghi rõ lý do không deploy được vào phần dưới đây:
-
-```
-(điền lý do nếu dùng phương án dự phòng, ngược lại xóa mục này)
-```
+5. Ghi rõ lý do không deploy được vào phần dưới đây: N/A — đã deploy thành công lên Railway.
