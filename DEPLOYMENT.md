@@ -10,9 +10,9 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Họ và tên | (điền họ tên) |
-| Mã học viên | (điền mã học viên) |
-| Repo | (điền link repo K4-DAY12-...) |
+| Họ và tên | Trần Văn Thị |
+| Mã học viên | 2A202601548 |
+| Repo | https://github.com/Suneo68/K4-Day12-2A202601548-TranVanThi |
 
 ## Service
 
