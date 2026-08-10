@@ -194,4 +194,12 @@ Ghi lại **một** lỗi bạn gặp khi deploy lên cloud (build fail, health 
 timeout, sai REDIS_URL, app không đọc `$PORT`...): thông báo lỗi là gì, bạn
 tìm ra nguyên nhân bằng cách nào, và sửa ra sao?
 
-> *Câu trả lời của bạn (điền sau khi deploy xong CP5)*
+> Lỗi gặp phải: Khi mới deploy lên Railway, container bị crash liên tục với thông báo
+> `Error: Invalid value for '--port': '$PORT' is not a valid integer.` trong Deploy Logs.
+>
+> Nguyên nhân: Railway tự động cấp biến `$PORT` động cho container, nhưng lệnh `startCommand`
+> trong `railway.toml` gọi uvicorn trực tiếp khiến chuỗi `$PORT` không được shell giải mã
+> thành số cổng thực tế mà bị truyền dưới dạng chuỗi thô "$PORT".
+>
+> Cách sửa: Cập nhật `railway.toml` sửa `startCommand` thành `sh -c 'uvicorn app.main:app --host 0.0.0.0 --port $PORT'`
+> để shell thực thi và giải mã biến `$PORT` thành số cổng trước khi truyền vào uvicorn.
