@@ -18,6 +18,14 @@ HISTORY_MAX_MESSAGES = 12
 HISTORY_TTL_SECONDS = 3 * 24 * 3600
 
 
+class DummyInvalidRedisClient:
+    def ping(self):
+        raise ConnectionError("Invalid Redis URL")
+
+    def __getattr__(self, name):
+        raise ConnectionError("Invalid Redis URL")
+
+
 def get_redis_client(url: str | None = None):
     """CHO SẴN — tạo client Redis từ URL.
 
@@ -30,7 +38,10 @@ def get_redis_client(url: str | None = None):
         import fakeredis
 
         return fakeredis.FakeRedis(decode_responses=True)
-    return redis.from_url(url, decode_responses=True)
+    try:
+        return redis.from_url(url, decode_responses=True)
+    except Exception:
+        return DummyInvalidRedisClient()
 
 
 class ChatStore:
