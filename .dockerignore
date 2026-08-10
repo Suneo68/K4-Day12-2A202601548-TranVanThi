@@ -1,6 +1,46 @@
-# TODO (CP2): file này quyết định thứ KHÔNG được copy vào image.
+# file .dockerignore — quyết định thứ KHÔNG được copy vào image
 # Bỏ sót .env = leak secret vào image. Bỏ sót .git = image phình to.
-# Bổ sung đủ các mục còn thiếu — xem tests/test_cp2.py để biết yêu cầu.
 
+# ── Secrets ─────────────────────────────────────────────────────────
+# QUAN TRỌNG NHẤT: không bao giờ để .env vào image
+.env
+.env.*
+!.env.example
+
+# ── Môi trường Python ───────────────────────────────────────────────
+.venv
+venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ── Git ─────────────────────────────────────────────────────────────
 .git
 .gitignore
+.gitattributes
+
+# ── Tests — không cần trong image production ────────────────────────
+tests/
+
+# ── Tài liệu và metadata ────────────────────────────────────────────
+*.md
+screenshots/
+.dockerignore
+
+# ── Editor và OS ────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# ── CI/CD ───────────────────────────────────────────────────────────
+.github/
+
+# ── Các file config không cần trong container ───────────────────────
+grade.py
+exercises.md
+DEPLOYMENT.md
+render.yaml
+railway.toml
